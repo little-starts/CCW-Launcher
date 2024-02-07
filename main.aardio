@@ -1,0 +1,73 @@
+import win.ui;
+import win.ui.atom;
+/*DSG{{*/
+mainForm = win.form(text="共创世界启动器";right=759;bottom=469)
+mainForm.add()
+/*}}*/
+
+import process
+import io
+var atom,hwnd/*冲突窗口的句柄,该函数会自动激活此窗口*/ = mainForm.atom("请在这里输入唯一标识字符串，建议使用[工具->GUID]生成器生成");
+if(!atom){
+	/*为窗口设置原子值可以避免一个程序重复运行多个实例*/
+	mainForm.msgbox("请勿重复启动，检查您的托盘图标")
+	win.quitMessage();	return;
+}
+import win.util.tray;
+var tray = win.util.tray(mainForm,"~\logo-ccw.ico") //创建托盘图标，如果不能显示图标，可能是图标问题，要复合图标
+tray.message = 0x400+9981/*_WM_TRAYMESSAGE*/
+tray.tip = "共创世界-白猫" //设置鼠标提示  
+
+mainForm.onClose = function(hwnd,message,wParam,lParam){
+    tray.delete(); //关闭窗口同时删掉托盘，避免关闭窗口后要鼠标移到托盘图标才消失
+}
+
+//下面是添加托盘右键菜单
+import win.ui.menu;
+mainForm.popmenu=win.ui.popmenu(mainForm);
+mainForm.popmenu.add('作者-白猫',function(id){
+   process.openUrl("https://www.ccw.site/student/6173f57f48cf8f4796fc860e")
+})
+mainForm.popmenu.add()
+mainForm.popmenu.add('主界面',function(id){
+	var frmChild = mainForm.loadForm("\forms\home.aardio");
+	frmChild.show();
+})
+mainForm.popmenu.add('退出',function(id){
+   mainForm.close();
+})
+
+//下面是获取鼠标消息弹出上面的右键菜单
+import mouse;
+mainForm.wndproc = function(hwnd,message,wparam,lparam){
+    select(message) {//判断消息类型
+        case( 0x400+9981/*_WM_TRAYMESSAGE*/ ) { //托盘图标消息
+              
+            if(lparam = 0x203/*_WM_LBUTTONDBLCLK)*/){  //鼠标双击
+				var frmChild = mainForm.loadForm("\forms\home.aardio");
+				frmChild.show();
+            }
+            elseif(lparam =0x205/*_WM_RBUTTONUP*/){ //鼠标右键
+                    x,y = mouse.getPos();
+                            win.setForeground(mainForm.hwnd)
+                            mainForm.popmenu.popup(x,y,true)
+            }  
+        }
+        case( 0x112/*_WM_SYSCOMMAND*/ ){ //系统命令消息
+            if( wparam == 0xF020/*_SC_MINIMIZE*/ ){ //用户点击了最小化按钮
+                mainForm.show(false); //隐藏窗口
+                return true;//阻击默认消息传递，取消最小化过程
+              }
+        }  
+     }
+}
+
+Info = {
+	name = "";
+	url = "";
+}
+
+var frmChild = mainForm.loadForm("\forms\home.aardio");
+frmChild.show();
+
+win.loopMessage();
