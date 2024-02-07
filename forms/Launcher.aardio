@@ -1,0 +1,23 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="启动器";right=639;bottom=359)
+winform.add(
+button={cls="button";text="开始游戏";left=16;top=304;right=136;bottom=344;db=0.04;dl=0.03;dr=0.79;dt=0.84;z=2};
+plus2={cls="plus";left=0;top=0;right=640;bottom=360;db=1;dl=1;dr=1;dt=1;z=1}
+)
+/*}}*/
+
+winform.button.oncommand = function(id,event){
+	winform.msgbox("ALT+F4退出游戏",Info.name,0)
+	var frmChild = winform.loadForm("\forms\game.aardio");
+	frmChild.show();
+}
+io.print("C:/CCW Launcher/" + Info.name + ".png")
+winform.plus2.background = "C:/CCW Launcher/" + Info.name + ".png"
+
+import winex
+winex.setText(winform.hwnd,Info.name);
+
+winform.show();
+win.loopMessage();
+return winform;

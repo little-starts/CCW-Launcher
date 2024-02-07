@@ -1,0 +1,22 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="登录管理";right=263;bottom=55;border="dialog frame";max=false;min=false)
+winform.add(
+login={cls="button";text="登录";left=8;top=8;right=128;bottom=48;z=1};
+logout={cls="button";text="登出";left=136;top=8;right=256;bottom=48;z=2}
+)
+/*}}*/
+
+winform.login.oncommand = function(id,event){
+	var frmChild = winform.loadForm("\forms\login.aardio");
+	frmChild.show();
+}
+
+winform.logout.oncommand = function(id,event){
+	var frmChild = winform.loadForm("\forms\logout.aardio");
+	frmChild.show();
+}
+
+winform.show();
+win.loopMessage();
+return winform;

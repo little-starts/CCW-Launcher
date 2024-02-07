@@ -1,0 +1,28 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="导入作品";right=759;bottom=469;border="dialog frame")
+winform.add(
+ID={cls="edit";left=24;top=152;right=312;bottom=184;edge=1;font=LOGFONT(h=-16);z=5};
+install={cls="button";text="开始导入";left=624;top=408;right=744;bottom=456;db=1;dl=1;dr=1;dt=1;z=1};
+name={cls="edit";left=24;top=64;right=312;bottom=96;edge=1;font=LOGFONT(h=-16);z=3};
+plus={cls="plus";left=320;top=120;right=744;bottom=208;background="\ID提示.png";db=1;dl=1;dr=1;dt=1;z=6};
+static={cls="static";text="作品名称";left=24;top=16;right=144;bottom=56;font=LOGFONT(h=-24;name='优设标题黑');transparent=1;z=2};
+static2={cls="static";text="作品ID";left=24;top=104;right=144;bottom=144;font=LOGFONT(h=-24;name='优设标题黑');transparent=1;z=4}
+)
+/*}}*/
+
+winform.install.oncommand = function(id,event) {
+	if(string.indexAny(winform.ID.text,"/") == null) {
+		Info.url = "https://www.ccw.site/detail/" + winform.ID.text;
+		Info.name = winform.name.text;
+		var frmChild = winform.loadForm("\forms\get.aardio");
+		frmChild.show();
+	}
+	else {
+		winform.msgbox("请输入作品ID而非链接！！！")
+	}
+	
+}
+winform.show();
+win.loopMessage();
+return winform;

@@ -1,0 +1,17 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="破碎维度";right=759;bottom=469;border="none";maximize=1;mode="popup";title=false)
+winform.add()
+/*}}*/
+
+import web.view;
+var theView  = web.view(winform); 
+ 
+//导出为 JavaScript 中的 aardio 对象
+theView.external = {
+}
+
+theView.go(Info.url);
+winform.show();
+win.loopMessage();
+return winform;

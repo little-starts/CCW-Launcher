@@ -1,0 +1,29 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="登录";right=759;bottom=469;maximize=1)
+winform.add()
+/*}}*/
+
+import web.view;
+var theView  = web.view(winform); 
+//导出为 JavaScript 中的 aardio 对象
+theView.external = {
+	close = function(){
+		winform.msgbox("登录成功","共创世界",0)
+		winform.close()
+	}
+	
+}
+theView.go("https://www.ccw.site/login");
+var js = /*
+setInterval(() => {
+    console.log(window.location.href)
+    if (window.location.href == "https://www.ccw.site/") {
+        aardio.close();
+    }
+}, 1000);
+*/
+theView.doScript(js)
+winform.show();
+win.loopMessage();
+return winform;
