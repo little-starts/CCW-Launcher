@@ -8,6 +8,8 @@ import process
 import fsys;
 import io;
 import web.view;
+import fsys.lnk;
+import web.json;
 var theView  = web.view(winform); 
  
 //导出为 JavaScript 中的 aardio 对象
@@ -91,6 +93,22 @@ theView.external = {
     openurl = function(url){
 		process.openUrl(url)
     }
+    lnk = function(name,url){
+    	Info.url = url;
+    	Info.name = name;
+		var lnk = fsys.lnk();
+		lnk.name = "这是一个快捷方式"  
+
+		lnk.path = io._exepath;//设置目标路径
+		lnk.arguments = web.json.stringify(Info);
+
+		lnk.save(
+    		fsys.joinpath(
+   		     fsys.getSpecial(0x0010 /*_CSIDL_DESKTOPDIRECTORY*/ )
+ 		       ,Info.name + ".lnk"
+        )
+)
+    }
 }
 class MINMAXINFO
 {
@@ -118,7 +136,6 @@ winform.wndproc = function ( hwnd, message, wParam, lParam ) {
                 }
         }
 }
-theView.enableDevTools(false)
 theView.enableDefaultContextMenus(false)
 theView.go("\web\index.html");
 winform.show();

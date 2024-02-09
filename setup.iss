@@ -2,7 +2,7 @@
 ; 有关创建 Inno Setup 脚本文件的详细资料请查阅帮助文档！
 
 #define MyAppName "共创世界启动器"
-#define MyAppVersion "0.0.1"
+#define MyAppVersion "0.2.0"
 #define MyAppPublisher "白猫"
 #define MyAppURL "https://www.ccw.site/"
 #define MyAppExeName "共创世界.exe"

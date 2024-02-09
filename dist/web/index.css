@@ -1,0 +1,210 @@
+:root {
+    --color1: #87b1ff;
+    --color2: #ff0000;
+    --fontcolor: rgb(235, 235, 235);
+    --color-before: white;
+    --color-after: rgb(0, 0, 0);
+    --shadow: rgba(0, 0, 0, 0.459);
+    --blur: 5px;
+    --fontsize: 10px;
+}
+
+body {
+    background-color: var(--fontcolor);
+}
+
+#t {
+    height: calc(100% - 20px);
+    aspect-ratio: 3/1;
+    left: 20%;
+}
+
+.head {
+    padding-left: 10px;
+    font-size: 1vh;
+    max-height: 100px;
+    min-height: 30px;
+    border-radius: 0px 0px 10px 10px;
+    background: var(--color-before);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: calc(100% - 10px);
+    height: 10%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    transition: all 0.2s ease-out;
+    display: flex;
+    align-items: center;
+}
+
+.body {
+    position: absolute;
+    top: 10%;
+    left: 0px;
+    right: 0px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.body div {
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 20px);
+    padding: 5px;
+    margin: 5px;
+    overflow: hidden;
+    background-color: var(--color-before);
+    border-radius: 10px;
+    height: 10%;
+}
+
+.body div p {
+    display: flex;
+    align-items: center;
+    font-size: var(--fontsize);
+    margin: 0px;
+    padding: 5px;
+    overflow: hidden;
+    background-color: var(--color-before);
+    height: 10%;
+}
+
+h5 {
+    display: flex;
+    align-items: center;
+    font-size: var(--fontsize);
+}
+
+h1 {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    font-size: calc(var(--fontsize) + 10px);
+}
+
+.b {
+    margin-right: 10px;
+    height: 30px;
+}
+
+.headb {
+    margin-right: 10px;
+    height: calc(100% - 20px);
+    aspect-ratio: 3/1;
+    position: absolute;
+    right: 10px;
+}
+
+.logo {
+    height: 70%;
+    aspect-ratio: 1/1;
+    margin-right: 10px;
+}
+
+.icon {
+    height: 70%;
+    aspect-ratio: 1/1;
+}
+
+button {
+    font-size: var(--fontsize);
+    border-radius: 10px;
+    max-height: 80px;
+    background: var(--color1);
+    color: var(--color-before);
+    border: none;
+    display: inline-block;
+    height: calc(10% - 20px);
+    aspect-ratio: 2/1;
+    transition: all 0.2s ease-out;
+}
+
+#open {
+    height: 10vh;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
+/*js弹窗控件*/
+.modal {
+    height: 0%;
+    transition: all 0.2s ease-out;
+}
+
+.modal-content {
+    margin-top: 10px;
+    height: calc(100% - 70px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.modals {
+    overflow: hidden;
+    background-color: #00000000;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 20px;
+    width: 50%;
+    height: 50%;
+    position: relative;
+}
+
+.modal-content::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+.modal-content p,
+.modals h2 {
+    margin: 0px;
+    color: var(--color-after);
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.yes,
+.no {
+    margin-left: 10px;
+    float: right;
+    border-radius: 10px;
+    max-height: 80px;
+    background: var(--color1);
+    color: var(--color-before);
+    border: none;
+    height: 40px;
+    aspect-ratio: 2/1;
+    transition: all 0.2s ease-out;
+}
+
+.no {
+    background: var(--color2);
+}
+
+.input {
+    margin-left: 10px;
+    float: right;
+    border-radius: 10px;
+    max-height: 80px;
+    background: var(--color-before);
+    border: 2px solid var(--color1);
+    color: var(--color-after);
+    height: 34px;
+    width: calc(100% - 200px);
+    transition: all 0.2s ease-out;
+}

@@ -1,17 +1,39 @@
 import win.ui;
+import win.util.tray;
 import win.ui.atom;
 /*DSG{{*/
 mainForm = win.form(text="共创世界启动器";right=759;bottom=469)
 mainForm.add()
 /*}}*/
 
+import web.json
 import process
 import io
 var atom,hwnd/*冲突窗口的句柄,该函数会自动激活此窗口*/ = mainForm.atom("请在这里输入唯一标识字符串，建议使用[工具->GUID]生成器生成");
-if(!atom){
-	/*为窗口设置原子值可以避免一个程序重复运行多个实例*/
-	mainForm.msgbox("请勿重复启动，检查您的托盘图标")
-	win.quitMessage();	return;
+
+Info = {
+	name = "";
+	url = "";
+}
+io.print(_CMDLINE)
+if(_CMDLINE != null && _CMDLINE != ""){
+	import winex
+	var s = web.json.parse(_CMDLINE)
+	Info.name = s.name;
+	Info.url = s.url;
+	var frmChild = mainForm.loadForm("\forms\Launcher.aardio");
+	frmChild.show();
+	winex.waitClose(frmChild.hwnd);
+	mainForm.close();
+}
+else{
+	if(!atom){
+		/*为窗口设置原子值可以避免一个程序重复运行多个实例*/
+		mainForm.msgbox("请勿重复启动，检查您的托盘图标")
+		win.quitMessage();	return;
+	}
+	var frmChild = mainForm.loadForm("\forms\home.aardio");
+	frmChild.show();
 }
 import win.util.tray;
 var tray = win.util.tray(mainForm,"~\logo-ccw.ico") //创建托盘图标，如果不能显示图标，可能是图标问题，要复合图标
@@ -61,13 +83,5 @@ mainForm.wndproc = function(hwnd,message,wparam,lparam){
         }  
      }
 }
-
-Info = {
-	name = "";
-	url = "";
-}
-
-var frmChild = mainForm.loadForm("\forms\home.aardio");
-frmChild.show();
 
 win.loopMessage();
