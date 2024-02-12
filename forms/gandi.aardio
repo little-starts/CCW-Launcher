@@ -1,0 +1,20 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="共创世界";right=759;bottom=469;maximize=1;mode="popup";title=1)
+winform.add()
+/*}}*/
+
+import web.view;
+var theView  = web.view(winform); 
+ 
+import winex
+winex.setText(winform.hwnd,Info.name);
+
+//导出为 JavaScript 中的 aardio 对象
+theView.external = {
+}
+
+theView.go(Info.url);
+winform.show();
+win.loopMessage();
+return winform;

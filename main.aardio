@@ -11,6 +11,7 @@ import process
 import io
 var atom,hwnd/*冲突窗口的句柄,该函数会自动激活此窗口*/ = mainForm.atom("请在这里输入唯一标识字符串，建议使用[工具->GUID]生成器生成");
 
+io.print(str)
 Info = {
 	name = "";
 	url = "";
@@ -83,5 +84,12 @@ mainForm.wndproc = function(hwnd,message,wparam,lparam){
         }  
      }
 }
+subscribe("close",function(){
+	mainForm.close();
+} )
+
+var frmChild = mainForm.loadForm("\forms\version.aardio");
+frmChild.show();
+
 
 win.loopMessage();

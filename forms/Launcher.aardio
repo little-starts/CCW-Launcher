@@ -2,8 +2,9 @@ import win.ui;
 /*DSG{{*/
 var winform = win.form(text="启动器";right=639;bottom=359)
 winform.add(
-button={cls="button";text="开始游戏";left=8;top=312;right=136;bottom=352;z=2};
-plus={cls="plus";left=0;top=0;right=640;bottom=360;z=1}
+button={cls="button";text="开始游戏";left=8;top=312;right=136;bottom=352;db=0.02;dl=0.01;dr=0.79;dt=0.87;z=2};
+button2={cls="button";text="开始创作";left=144;top=312;right=272;bottom=352;db=0.02;dl=0.23;dr=0.57;dt=0.87;z=3};
+plus={cls="plus";left=0;top=0;right=640;bottom=360;db=1;dl=1;dr=1;dt=1;z=1}
 )
 /*}}*/
 
@@ -14,6 +15,15 @@ winform.button.oncommand = function(id,event){
 }
 io.print("C:/CCW Launcher/" + Info.name + ".png")
 winform.plus.background = "C:/CCW Launcher/" + Info.name + ".png"
+
+winform.button2.oncommand = function(id,event){
+	io.print(Info.url,string.split(Info.url,'/'))
+	Info.url = string.split(Info.url,'/')
+	Info.url = "https://www.ccw.site/gandi/project/" + Info.url[table.count(Info.url)]
+	io.print(Info.url)
+	var frmChild = winform.loadForm("\forms\gandi.aardio");
+	frmChild.show();
+}
 
 import winex
 winex.setText(winform.hwnd,Info.name);

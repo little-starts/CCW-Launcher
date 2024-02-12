@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="共创世界" libEmbed="true" icon="logo-ccw.ico" ui="win" output="共创世界.exe" CompanyName="aardio" FileDescription="共创世界" LegalCopyright="Copyright (C) 作者 2023" ProductName="共创世界" InternalName="共创世界" FileVersion="0.0.0.1" ProductVersion="0.0.0.1" publishDir="/dist/" dstrip="false" local="false" ignored="false">
+<project ver="10" name="共创世界" libEmbed="true" icon="logo-ccw.ico" ui="win" output="共创世界.exe" CompanyName="aardio" FileDescription="共创世界" LegalCopyright="Copyright (C) 作者 2023" ProductName="共创世界" InternalName="共创世界" FileVersion="0.2.0" ProductVersion="0.2.0" publishDir="/dist/" dstrip="false" local="false" ignored="false">
 	<file name="main" path="main.aardio"/>
 	<folder name="窗体" path="forms" comment="" embed="true" local="false" ignored="false">
 		<file name="game.aardio" path="forms\game.aardio" comment="forms\game.aardio"/>
+		<file name="gandi.aardio" path="forms\gandi.aardio" comment="forms\gandi.aardio"/>
 		<file name="get.aardio" path="forms\get.aardio" comment="forms\get.aardio"/>
 		<file name="home.aardio" path="forms\home.aardio" comment="forms\home.aardio"/>
 		<file name="install.aardio" path="forms\install.aardio" comment="forms\install.aardio"/>
 		<file name="Launcher.aardio" path="forms\Launcher.aardio" comment="forms\Launcher.aardio"/>
+		<file name="log.aardio" path="forms\log.aardio" comment="forms\log.aardio"/>
 		<file name="login.aardio" path="forms\login.aardio" comment="forms\login.aardio"/>
 		<file name="logout.aardio" path="forms\logout.aardio" comment="forms\logout.aardio"/>
-		<file name="log.aardio" path="forms\log.aardio" comment="forms\log.aardio"/>
+		<file name="version.aardio" path="forms\version.aardio" comment="forms\version.aardio"/>
 	</folder>
 	<folder name="网页" path="web" embed="true" comment="目录" local="true" ignored="false">
 		<file name="index.css" path="web\index.css" comment="web\index.css"/>
