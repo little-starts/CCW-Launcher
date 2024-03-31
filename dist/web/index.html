@@ -17,21 +17,23 @@
     </script>
 </head>
 
-<body>
+<body onselectstart="return false;" unselectable="on">
     <div class="head">
         <img src="./logo-ccw.png" alt="" class="logo">
         <h1>共创世界启动器</h1>
         <button id="t" onclick='openjiaocheng()'>教程</button>
-        <button id="update" class="headb" onclick='openlog()' style="right: 73px;">管理登录</button>
-        <button id="update" class="headb" onclick='hitMin()'
-            style="right: 40px;aspect-ratio: 1/1;background: #87b1ff60;">
+        <button id="t" onclick='lnks()'>自动签到</button>
+        <button id="t" onclick='zhichi()'>支持作者</button>
+        <button id="login" class="headb" onclick='openlog()' style="right: 73px;">管理登录</button>
+        <button id="min" class="headb" onclick='hitMin()' style="right: 40px;aspect-ratio: 1/1;background: #87b1ff60;">
             <img src="./最小化.svg" alt="" class="icon">
         </button>
-        <button id="update" class="headb" onclick='hitClose()' style="aspect-ratio: 1/1;background: #ff303373;">
+        <button id="close" class="headb" onclick='hitClose()' style="aspect-ratio: 1/1;background: #ff303373;">
             <img src="./关机.svg" alt="" class="icon">
         </button>
     </div>
     <div class="body">
+        <button id="open" onclick='getquanxian()'>获取权限</button>
         <button id="open" onclick='openinstall()'>导入作品</button>
     </div>
     <div id="json-output"></div>

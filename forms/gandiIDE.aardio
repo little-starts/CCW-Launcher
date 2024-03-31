@@ -1,0 +1,75 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="Gandi IDE";right=759;bottom=469;maximize=1)
+winform.add()
+/*}}*/
+
+import process
+import fsys;
+import io;
+import web.view;
+import fsys.lnk;
+import web.json;
+var theView  = web.view(winform); 
+ 
+//导出为 JavaScript 中的 aardio 对象
+theView.external = {
+    aardio = function(url){
+        return url; 
+    }
+    openFile = function(url,modes){
+        file = io.open (url, modes);
+        io.print("打开文件：",url,"类型：",modes,"结果：",file);
+    }
+    closeFile = function(){
+        file.close();
+        io.print("关闭文件");
+    }
+    readFile = function(url){
+        var s = file.read(url);
+        io.print("读取文件：",url,"打开内容：",s);
+        return s;
+    }
+    writeFile = function(url){
+        file.write(url);
+        io.print("写入文件内容：",url);
+        return s;
+    }
+    getFile = function(url){
+        var $str = string.load(url)
+        io.print("读取文件：",url,"打开内容：",$str);
+        return $str;
+    }
+    saveFile = function(url,content,append){
+        var $str = string.save(url,content,append)
+        io.print("复写文件：",url,"内容：",content);
+        return $str;
+    }
+    deleteFile = function(url){
+        var $str = fsys.delete(url);
+        io.print("删除文件：",url);
+        return $str;
+    }
+    createDir = function(url){
+        fsys.createDir(url);
+        io.print("创建文件夹：",url);
+    }
+    setvar = function(content){
+        io.print("写入缓存：",content);
+        webs = content;
+    }
+    getvar = function(){
+        io.print("读取缓存：",webs);
+        return webs;
+    }
+    url = function(url){
+        process.openUrl("url");
+    }
+    openurl = function(url){
+		process.openUrl(url)
+    }
+}
+theView.go("\web\index.html");
+winform.show();
+win.loopMessage();
+return winform;

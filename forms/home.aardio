@@ -9,6 +9,7 @@ import fsys;
 import io;
 import web.view;
 import fsys.lnk;
+import process.admin;
 import web.json;
 var theView  = web.view(winform); 
  
@@ -97,7 +98,7 @@ theView.external = {
     	Info.url = url;
     	Info.name = name;
 		var lnk = fsys.lnk();
-		lnk.name = "这是一个快捷方式"  
+		lnk.name = "这是一个快捷方式"
 
 		lnk.path = io._exepath;//设置目标路径
 		lnk.arguments = web.json.stringify(Info);
@@ -106,38 +107,29 @@ theView.external = {
     		fsys.joinpath(
    		     fsys.getSpecial(0x0010 /*_CSIDL_DESKTOPDIRECTORY*/ )
  		       ,Info.name + ".lnk"
-        )
-)
+        	)
+		)
+    }
+    lnks = function(){
+		var lnk = fsys.lnk();
+		lnk.name = "这是一个快捷方式"
+
+		lnk.path = io._exepath;//设置目标路径
+		lnk.arguments = "start";
+
+		lnk.save(
+    		fsys.joinpath(
+   		     fsys.getSpecial(0x0007 /*_CSIDL_STARTUP*/ )
+ 		       ,"共创世界自动签到.lnk"
+        	)
+		)
+    }
+    zhuce = function(){
+		process.admin.runas( "regedit.exe","/s " + fsys.shortpath("\web\reg.reg" ) )
     }
 }
-class MINMAXINFO
-{
-        LONG reserved;
-        int maxSizeX;
-        int maxSizeY;
-        int maxPositionX;
-        int maxPositionY;
-        int minTrackSizeX;
-        int minTrackSizeY;
-        int maxTrackSizeX;
-        int maxTrackSizeY;
-}
-winform.wndproc = function ( hwnd, message, wParam, lParam ) {
-        select(message) {
-                case 0x24/*_WM_GETMINMAXINFO*/ {
-                        var m = MINMAXINFO()
-                        raw.convert(topointer(lParam), m);
-                        m.minTrackSizeX = 760
-                        m.minTrackSizeY = 470
-                        m.maxTrackSizeX = 800
-                        m.maxTrackSizeY = 500
-                        ::CopyMemoryByStruct(topointer(lParam), m, raw.sizeof(m));
-                        return 0
-                }
-        }
-}
-theView.enableDevTools(false)
-theView.enableDefaultContextMenus(false)
+//theView.enableDevTools(false);
+
 theView.go("\web\index.html");
 winform.show();
 win.loopMessage();

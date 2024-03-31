@@ -10,28 +10,62 @@ import web.json
 import process
 import io
 var atom,hwnd/*冲突窗口的句柄,该函数会自动激活此窗口*/ = mainForm.atom("请在这里输入唯一标识字符串，建议使用[工具->GUID]生成器生成");
+import fsys.lnk;
+import fsys;
+import process.admin;
 
-io.print(str)
+var lnk = fsys.lnk();
+lnk.name = "这是一个快捷方式"
+lnk.path = io._exepath;//设置目标路径
+lnk.arguments = "";
+
+lnk.save(
+    fsys.joinpath("C:\CCW Launcher","CCWL.lnk")
+)
+
 Info = {
 	name = "";
 	url = "";
+	installmode = false;
 }
-io.print(_CMDLINE)
-if(_CMDLINE != null && _CMDLINE != ""){
+
+if(_CMDLINE != null && _CMDLINE != "" && _CMDLINE !== "start"){
 	import winex
-	var s = web.json.parse(_CMDLINE)
-	Info.name = s.name;
-	Info.url = s.url;
-	var frmChild = mainForm.loadForm("\forms\Launcher.aardio");
+	if(web.json.tryParse(_CMDLINE) === null){
+		io.print(_CMDLINE);
+		file = io.open (string.split(_CMDLINE,'"')[2], r);
+		var read = file.read("%s");
+		if(read === "install") {
+			Info.name = file.read("%s");
+			Info.url = file.read("%s");
+			var frmChild = mainForm.loadForm("\forms\installing.aardio");
+			frmChild.show();
+			winex.waitClose(frmChild.hwnd);
+			mainForm.close();
+		}
+	}
+	else{
+		var s = web.json.parse(_CMDLINE);
+		Info.name = s.name;
+		Info.url = s.url;
+		var frmChild = mainForm.loadForm("\forms\Launcher.aardio");
+		frmChild.show();
+		winex.waitClose(frmChild.hwnd);
+		mainForm.close();
+	}
+}
+elseif(_CMDLINE == "start") {
+	var frmChild = mainForm.loadForm("\forms\check.aardio");
 	frmChild.show();
-	winex.waitClose(frmChild.hwnd);
-	mainForm.close();
+	if(!atom){
+		/*为窗口设置原子值可以避免一个程序重复运行多个实例*/
+		process.kill("共创世界.exe");
+	}
 }
 else{
 	if(!atom){
 		/*为窗口设置原子值可以避免一个程序重复运行多个实例*/
-		mainForm.msgbox("请勿重复启动，检查您的托盘图标")
-		win.quitMessage();	return;
+		process.kill("共创世界.exe");
 	}
 	var frmChild = mainForm.loadForm("\forms\home.aardio");
 	frmChild.show();
@@ -50,6 +84,9 @@ import win.ui.menu;
 mainForm.popmenu=win.ui.popmenu(mainForm);
 mainForm.popmenu.add('作者-白猫',function(id){
    process.openUrl("https://www.ccw.site/student/6173f57f48cf8f4796fc860e")
+})
+mainForm.popmenu.add('鸣谢-酷可',function(id){
+   process.openUrl("https://www.ccw.site/student/610b508176415b2f27e0f851")
 })
 mainForm.popmenu.add()
 mainForm.popmenu.add('主界面',function(id){
@@ -74,7 +111,7 @@ mainForm.wndproc = function(hwnd,message,wparam,lparam){
                     x,y = mouse.getPos();
                             win.setForeground(mainForm.hwnd)
                             mainForm.popmenu.popup(x,y,true)
-            }  
+            }
         }
         case( 0x112/*_WM_SYSCOMMAND*/ ){ //系统命令消息
             if( wparam == 0xF020/*_SC_MINIMIZE*/ ){ //用户点击了最小化按钮

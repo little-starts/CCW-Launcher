@@ -1,0 +1,28 @@
+import win.ui;
+/*DSG{{*/
+var 安装 = win.form(text="aardio form";right=399;bottom=143;border="thin";max=false;min=false)
+安装.add(
+button={cls="button";text="禁止";left=232;top=80;right=368;bottom=120;z=2};
+button3={cls="button";text="允许";left=32;top=80;right=168;bottom=120;z=3};
+static={cls="static";text="是否允许安装";left=0;top=16;right=400;bottom=56;align="center";db=0.61;dl=1;dr=1;dt=0.11;font=LOGFONT(h=-16;name='优设标题黑');notify=1;transparent=1;z=1}
+)
+/*}}*/
+
+import winex;
+import win;
+安装.static.disabledText = "是否允许安装"+ Info.name;
+win.setTopmost(安装.hwnd)
+安装.button3.oncommand = function(id,event){
+	var frmChild = 安装.loadForm("\forms\get.aardio");
+	frmChild.show();
+	winex.waitClose(frmChild.hwnd);
+	mainForm.close();
+}
+
+安装.button.oncommand = function(id,event){
+	安装.close();
+}
+
+安装.show();
+win.loopMessage();
+return 安装;

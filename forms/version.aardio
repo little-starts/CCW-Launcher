@@ -9,31 +9,24 @@ static={cls="static";text="检查更新中...";left=80;top=40;right=200;bottom=7
 
 import process;
 import inet.http;
-import web.view;
-var theView  = web.view(winform);
-theView.external = {
-	update = function(url){
-		var http = inet.http();
-        var file = http.get("https://witcat.sipc.plus/CCWLaunchersetup.exe");
-        io.print(file)
-        string.save("C:/CCW Launcher/CCW Launcher setup.exe",file );
-        process("C:/CCW Launcher/CCW Launcher setup.exe");
-        publish("close");
-	}
-	close = function(){
-		winform.close()
-	}
+import fsys
+var http = inet.http();
+var file = http.get("https://witcat.sipc.plus/version.txt");
+io.print(file)
+string.save("C:/CCW Launcher/version",file );
+var s = string.load("C:/CCW Launcher/version");
+io.print(s)
+if(s !== "0.5.2"){
+	var http = inet.http();
+	var file = http.get("https://witcat.sipc.plus/CCWLaunchersetup.exe");
+	io.print(file)
+	fsys.createDir("C:/CCW Launcher/");
+	string.save("C:/CCW Launcher/CCW Launcher setup.exe",file );
+	process("C:/CCW Launcher/CCW Launcher setup.exe");
+	publish("close");
 }
-theView.go("https://witcat.sipc.plus/version.html");
-var js =/*
-    	if (document.body.innerText !== "0.3.0") {
-    		aardio.update("https://witcat.sipc.plus/CCWLaunchersetup.exe");
-   		}
-   		else{
-   			aardio.close();
-   		}
-*/
-theView.doScript(js);
-
+else{
+	winform.close();
+}
 win.loopMessage();
 return winform;

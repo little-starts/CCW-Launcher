@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="共创世界" libEmbed="true" icon="logo-ccw.ico" ui="win" output="共创世界.exe" CompanyName="aardio" FileDescription="共创世界" LegalCopyright="Copyright (C) 作者 2023" ProductName="共创世界" InternalName="共创世界" FileVersion="0.2.0" ProductVersion="0.2.0" publishDir="/dist/" dstrip="false" local="false" ignored="false">
+<project ver="10" name="共创世界" libEmbed="true" icon="logo-ccw.ico" ui="win" output="共创世界.exe" CompanyName="aardio" FileDescription="共创世界" LegalCopyright="Copyright (C) 白猫 2023" ProductName="共创世界" InternalName="共创世界" FileVersion="0.5.1" ProductVersion="0.5.1" publishDir="/dist/" dstrip="false" local="false" ignored="false">
 	<file name="main" path="main.aardio"/>
 	<folder name="窗体" path="forms" comment="" embed="true" local="false" ignored="false">
 		<file name="game.aardio" path="forms\game.aardio" comment="forms\game.aardio"/>
@@ -12,6 +12,9 @@
 		<file name="login.aardio" path="forms\login.aardio" comment="forms\login.aardio"/>
 		<file name="logout.aardio" path="forms\logout.aardio" comment="forms\logout.aardio"/>
 		<file name="version.aardio" path="forms\version.aardio" comment="forms\version.aardio"/>
+		<file name="check.aardio" path="forms\check.aardio" comment="forms\check.aardio"/>
+		<file name="gandiIDE.aardio" path="forms\gandiIDE.aardio" comment="forms\gandiIDE.aardio"/>
+		<file name="installing.aardio" path="forms\installing.aardio" comment="forms\installing.aardio"/>
 	</folder>
 	<folder name="网页" path="web" embed="true" comment="目录" local="true" ignored="false">
 		<file name="index.css" path="web\index.css" comment="web\index.css"/>
@@ -20,9 +23,7 @@
 		<file name="main.js" path="web\main.js" comment="web\main.js"/>
 		<file name="关机.svg" path="web\关机.svg" comment="web\关机.svg"/>
 		<file name="最小化.svg" path="web\最小化.svg" comment="web\最小化.svg"/>
-		<folder name="教程" path="web\教程" comment="web\教程">
-			<file name="教务处查课表教程.html" path="web\教程\教务处查课表教程.html" comment="web\教程\教务处查课表教程.html"/>
-		</folder>
+		<file name="reg.reg" path="web\reg.reg" comment="web\reg.reg"/>
 	</folder>
 	<folder name="网页源码" path="web.src" embed="false" comment="目录" local="false" ignored="true"/>
 </project>

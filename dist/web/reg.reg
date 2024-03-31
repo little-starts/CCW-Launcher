@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\ccwl]
+@="CCW_Launcher"
+
+[HKEY_CLASSES_ROOT\ccwl\shell]
+
+[HKEY_CLASSES_ROOT\ccwl\shell\open]
+
+[HKEY_CLASSES_ROOT\ccwl\shell\open\command]
+@="\"C:\\CCW Launcher\\CCWL.lnk\" \"%1\""

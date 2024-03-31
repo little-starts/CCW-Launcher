@@ -9,6 +9,10 @@
     --fontsize: 10px;
 }
 
+.body {
+    user-select: none;
+}
+
 body {
     background-color: var(--fontcolor);
 }
@@ -17,6 +21,7 @@ body {
     height: calc(100% - 20px);
     aspect-ratio: 3/1;
     left: 20%;
+    margin-right: 10px;
 }
 
 .head {
@@ -26,7 +31,7 @@ body {
     min-height: 30px;
     border-radius: 0px 0px 10px 10px;
     background: var(--color-before);
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: calc(100% - 10px);
@@ -123,9 +128,6 @@ button {
 
 #open {
     height: 10vh;
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
 }
 
 /*js弹窗控件*/

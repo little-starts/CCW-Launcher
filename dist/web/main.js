@@ -10,14 +10,43 @@ catch (e) {
     window.close();
 }
 
+let down = null;
 document.addEventListener('mousedown', function (e) {
-    if (e.target === document.getElementsByClassName("head")[0])
-        hitCaption();
+    down = setTimeout(() => {
+        if (isChildOf(e.target, document.getElementsByClassName("head")[0]))
+            hitCaption();
+    }, 100);
 });
+document.addEventListener('mouseup', function (e) {
+    clearTimeout(down);
+});
+
+function isChildOf(child, parent) {
+    // 如果parent不是元素节点或文档片段节点，则返回false
+    if (parent.nodeType !== Node.ELEMENT_NODE && parent.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+        return false;
+    }
+    if (child === parent) {
+        return true;
+    }
+    while ((child = child.parentNode)) {
+        if (child === parent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function zhichi() {
+    window.open("https://afdian.net/a/sgml55370");
+}
+
+let Json = "";
 
 window.onload = function () {
     getFile('C:/CCW Launcher/save.json').then((e) => {
         try {
+            Json = e;
             let json = JSON.parse(e);
             let body = document.getElementsByClassName("body")[0];
             json.forEach(element => {
@@ -29,12 +58,13 @@ window.onload = function () {
                 <img src="./删除.svg" alt="" class="icon">
                 </button>
                 <p id="schedulep">${element.name}</p>`
-                body.appendChild(s)
+                body.insertBefore(s, body.firstChild)
             });
         }
         catch (e) {
             let json = '[]';
             setFile('save.json', JSON.stringify(json))
+            Json = json;
             json = JSON.parse(json);
             let body = document.getElementsByClassName("body")[0];
             json.forEach(element => {
@@ -50,6 +80,25 @@ window.onload = function () {
             });
         }
     })
+    setInterval(() => {
+        getFile('C:/CCW Launcher/save.json').then((e) => {
+            if (e !== Json) {
+                location.reload()
+            }
+        })
+    }, 1000);
+    let myCookie = localStorage.getItem("zhuce");
+    if (myCookie !== "1") {
+        getquanxian();
+    }
+
+}
+
+function getquanxian() {
+    localStorage.setItem("zhuce", "1");
+    PopUps("关于权限", "接下来共创世界启动器将会获取注册表权限，用于注册快捷启动（从共创世界的拓展中一键打开启动器作品或者安装游戏）</br>请务必点击允许</br>（拒绝后请在页面最下方重新获取）", () => {
+        aardio.zhuce();
+    }, 0)
 }
 
 function openjiaocheng() {
@@ -295,6 +344,15 @@ function openurl(url) {
 function lnk(name, url) {
     aardio.lnk(name, url);
     PopUps("快捷方式", "已成功创建快捷方式到桌面", () => {
+
+    }, 1)
+}
+/**
+ * 创建游戏的快捷方式
+ */
+function lnks() {
+    aardio.lnks();
+    PopUps("自动签到", "自动签到服务已启动，将在每次启动电脑时自动签到", () => {
 
     }, 1)
 }

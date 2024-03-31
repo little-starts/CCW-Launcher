@@ -1,7 +1,10 @@
 import win.ui;
 /*DSG{{*/
-var winform = win.form(text="aardio form";right=0;bottom=0)
-winform.add()
+var winform = win.form(text="导入作品";right=287;bottom=111;border="dialog frame";max=false;min=false)
+winform.add(
+picturebox={cls="picturebox";left=0;top=0;right=288;bottom=112;bgcolor=16777215;z=1};
+static={cls="static";text="导入作品中...";left=80;top=40;right=200;bottom=72;align="center";font=LOGFONT(h=-16;name='优设标题黑');transparent=1;z=2}
+)
 /*}}*/
 
 import process; 
@@ -9,6 +12,7 @@ import fsys.stream;
 import gdip.bitmap;
 import inet.http;
 import web.view;
+import web.json;
 var theView  = web.view(winform); 
 //导出为 JavaScript 中的 aardio 对象
 theView.external = {
@@ -53,7 +57,7 @@ theView.external = {
         winform.msgbox("导入完成",Info.name,0)
         winform.hitClose();
     }
-    get = function(url){
+    get = function(url, name){
         io.print(url)
         //获取一个网络图片
 		var pngData = inet.http().get(url);
@@ -68,8 +72,14 @@ theView.external = {
 		//获取图片字符串 保存到本地
 		var str  = stream.readAll();
 		fsys.createDir("C:/CCW Launcher/");
-		string.save("C:/CCW Launcher/" + Info.name + ".png",str );
+		if(Info.name == ''){
+			string.save("C:/CCW Launcher/" + name + ".png",str );
+		}
+		else{
+			string.save("C:/CCW Launcher/" + Info.name + ".png",str );
+		}
     }
+    
 }
 var script = `/**
  * 打开文件
@@ -152,25 +162,46 @@ function setFile(name, content, append = false) {
 }
 
 let Interval = setInterval(() => {
-    if (document.getElementsByClassName("runWorksOuterBtn-mHIzf btn-iEdNA btn-middle-19T-1 btn-primary-QAIa5")[0] !== undefined) {
-        aardio.get(document.getElementsByClassName("runWorksWrapper-3T6tc")[0].style.backgroundImage.split('"')[1].split('?')[0]);
-        getFile('C:/CCW Launcher/save.json').then((e) => {
-            let url = "` + Info.url + `"
-            try {
-                let json = JSON.parse(e);
-                json.push({ "name": "` + Info.name + `", "url": url.split("detail").join("player") })
-                setFile("save.json", JSON.stringify(json))
-            }
-            catch (e) {
-                let json = [];
-                json.push({ "name": "` + Info.name + `", "url": url.split("detail").join("player") })
-                setFile("save.json", JSON.stringify(json))
-            }
-            clearInterval(Interval);
-            setTimeout(() => {
-                aardio.hitClose();
-            }, 1000);
-        })
+	if(` + tostring(Info.installmode) + `){
+        	getFile('C:/CCW Launcher/save.json').then((e) => {
+            	let url = "` + Info.url + `"
+            	try {
+            	    let json = JSON.parse(e);
+            	    json.push({ "name": "` + Info.name + `", "url": url.split("detail").join("player") })
+            	    setFile("save.json", JSON.stringify(json))
+            	}
+            	catch (e) {
+            	    let json = [];
+            	    json.push({ "name": "` + Info.name + `", "url": url.split("detail").join("player") })
+            	    setFile("save.json", JSON.stringify(json))
+            	}
+            	clearInterval(Interval);
+            	setTimeout(() => {
+                	aardio.hitClose();
+            	}, 1000);
+        	})
+	}
+	else{
+		if (document.getElementsByClassName("runWorksOuterBtn-mHIzf btn-iEdNA btn-middle-19T-1 btn-primary-QAIa5")[0] !== undefined) {
+        	aardio.get(document.getElementsByClassName("runWorksWrapper-3T6tc")[0].style.backgroundImage.split('"')[1].split('?')[0], document.getElementsByClassName("title-1M2qA")[0].innerText);
+        	getFile('C:/CCW Launcher/save.json').then((e) => {
+            	let url = "` + Info.url + `"
+            	try {
+            	    let json = JSON.parse(e);
+            	    json.push({ "name": ("` + Info.name + `"=="" ? document.getElementsByClassName("title-1M2qA")[0].innerText : "` + Info.name + `"), "url": url.split("detail").join("player") })
+            	    setFile("save.json", JSON.stringify(json))
+            	}
+            	catch (e) {
+            	    let json = [];
+            	    json.push({ "name": ("` + Info.name + `"=="" ? document.getElementsByClassName("title-1M2qA")[0].innerText : "` + Info.name + `"), "url": url.split("detail").join("player") })
+            	    setFile("save.json", JSON.stringify(json))
+            	}
+            	clearInterval(Interval);
+            	setTimeout(() => {
+                	aardio.hitClose();
+            	}, 1000);
+        	})
+    	}
     }
 }, 1000);`
 class MINMAXINFO

@@ -1,0 +1,71 @@
+import win.ui;
+/*DSG{{*/
+var winform = win.form(text="自动签到";right=287;bottom=111)
+winform.add(
+picturebox={cls="picturebox";left=0;top=0;right=288;bottom=112;bgcolor=16777215;z=1};
+static={cls="static";text="自动签到中...";left=80;top=40;right=200;bottom=72;align="center";font=LOGFONT(h=-16;name='优设标题黑');transparent=1;z=2}
+)
+/*}}*/
+
+import web.view;
+var theView  = web.view(winform); 
+//导出为 JavaScript 中的 aardio 对象
+theView.external = {
+	close = function(){
+		winform.close()
+	}
+}
+theView.go("https://www.ccw.site");
+var js = /*
+	// 从本地读取上次签到时间
+    var lastCheckinTime = localStorage.getItem('lastCheckinTime');
+
+    // 获取当前日期
+    var currentDate = new Date().toLocaleDateString();
+    console.log('开始判断签到');
+
+    // 判断是否是新的一天
+    if (lastCheckinTime !== currentDate) {
+        console.log('执行签到');
+        // 执行签到操作
+        var token = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('token='))
+            .split('=')[1];
+
+        var headers = {
+            'Content-Type': 'application/json',
+            'token': token
+        };
+
+        var payload = {
+            'scene': 'HOMEPAGE'
+        };
+
+        // 发送签到请求
+        fetch('https://community-web.ccw.site/study-community/check_in_record/insert', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // 控制台输出签到结果
+            // 将签到时间写入本地存储
+            localStorage.setItem('lastCheckinTime', currentDate);
+            aardio.close();
+        })
+        .catch((error) => {
+        	console.error(error);
+        	aardio.close();
+        });
+    } else {
+        console.log("用户已签到过"); // 控制台输出不是新的一天
+        aardio.close();
+    }
+*/
+theView.doScript(js);
+
+winform.show();
+win.loopMessage();
+return winform;
